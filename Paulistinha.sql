@@ -30,4 +30,13 @@ CREATE TABLE ItensNotas(
     FOREIGN KEY (id_produto) REFERENCES Produto(id_produto)
 );
 
-
+CREATE TRIGGER updateEstoque
+ON ItensNotas
+AFTER INSERT 
+AS
+BEGIN
+	UPDATE p
+	SET p.qtd_estoque = p.qtd_estoque - p.qtd_estoque
+	FROM Produto p
+	INNER JOIN inserted i ON p.id_produto = i.id_produto;
+END
