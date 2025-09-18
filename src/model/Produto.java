@@ -10,5 +10,9 @@ package model;
  * @author ghgen
  */
 public class Produto {
-    
+    int id_produto;
+    String nome;
+    String descricao;
+    double preco;
+    int qtd_estoque;
 }

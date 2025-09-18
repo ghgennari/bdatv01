@@ -10,5 +10,8 @@ package model;
  * @author ghgen
  */
 public class NotaSaida {
-    
+    int id_nota;
+    int id_cliente;
+    double valorVenda;
+    String data_venda;
 }
