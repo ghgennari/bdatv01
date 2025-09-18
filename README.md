@@ -31,8 +31,8 @@ O objetivo é implementar uma **interface desktop em Java (Swing)** para cadastr
 ---
 
 ##  Requisitos
-- **JDK 17** (ou superior)  
+- **JDK 1.8**  
 - **XAMPP** com MySQL ativado  
-- **IDE de sua preferência** (IntelliJ, Eclipse, NetBeans...)
+- **IDE NetBeans**
 
   
