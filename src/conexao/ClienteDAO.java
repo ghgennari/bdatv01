@@ -10,7 +10,7 @@ import model.Cliente;
 
 /**
  *
- * @author ghgen
+ * @author Gustavo
  */
 public class ClienteDAO {
     private Conexao conexao;
