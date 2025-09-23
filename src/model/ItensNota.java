@@ -13,6 +13,7 @@ public class ItensNota {
     private int id_nota;
     private int id_produto;
     private int qtdVenda;
+    private String NomeProduto;
 
     public int getId_nota() {
         return id_nota;
@@ -37,7 +38,13 @@ public class ItensNota {
     public void setQtdVenda(int qtdVenda) {
         this.qtdVenda = qtdVenda;
     }
+
+    public void setNomeProduto(String string) {
+        NomeProduto = string;
+    }
     
-    
+    public String getNomeProduto(){
+        return NomeProduto;
+    }
     
 }

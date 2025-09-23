@@ -8,7 +8,7 @@ import java.sql.DriverManager;
  * @author Gustavo
  */
 public class Conexao {
-    public Connection getConexao(){
+    public static Connection getConexao(){
         try{
             Connection conn = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/bdatv01?useTimezone=true&serverTimezone=UTC",

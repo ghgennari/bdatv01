@@ -52,4 +52,29 @@ public class ItensNotaDAO {
         }
         return lista;
     }
+    
+    public List<ItensNota> buscarPorNota(int idNota) throws SQLException {
+    List<ItensNota> lista = new ArrayList<>();
+    String sql = "SELECT i.id_produto, p.nome as nomeProduto, i.qtdVenda " +
+                 "FROM ItensNotas i " +
+                 "JOIN Produto p ON i.id_produto = p.id_produto " +
+                 "WHERE i.id_nota = ?";
+    
+    try (Connection con = Conexao.getConexao();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, idNota);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            ItensNota item = new ItensNota();
+            item.setId_produto(rs.getInt("id_produto"));
+            item.setNomeProduto(rs.getString("nomeProduto")); // você precisa ter esse campo na classe
+            item.setQtdVenda(rs.getInt("qtdVenda"));
+            lista.add(item);
+        }
+    }
+
+    return lista;
+}
 }
