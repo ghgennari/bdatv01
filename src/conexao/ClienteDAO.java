@@ -83,11 +83,13 @@ public class ClienteDAO {
     }
     
     public List<Cliente> listar() {
-        List<Cliente> lista = new ArrayList<>();
         String sql = "SELECT * FROM Cliente";
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+            ResultSet.CONCUR_UPDATABLE);
+            
             ResultSet rs = stmt.executeQuery();
+            List<Cliente> listaClientes = new ArrayList();
             while (rs.next()) {
                 Cliente cliente = new Cliente();
                 cliente.setId_cliente(rs.getInt("id_cliente"));
@@ -95,13 +97,12 @@ public class ClienteDAO {
                 cliente.setEndereco(rs.getString("endereco"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setTelefone(rs.getString("telefone"));
-                lista.add(cliente);
+                listaClientes.add(cliente);
             }
+            return listaClientes;
         } catch (SQLException ex) {
             System.out.println("Erro ao listar clientes: " + ex.getMessage());
+            return null;
         }
-        return lista;
     }
-    
 }
-    

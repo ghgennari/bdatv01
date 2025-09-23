@@ -5,25 +5,24 @@
  */
 package view;
 
-import conexao.ProdutoDAO;
+import conexao.ClienteDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.Produto;
+import model.Cliente;
 
 /**
  *
  * @author Gorodamion
  */
-public class RelatorioProdutos extends javax.swing.JFrame {
+public class RelatorioClientes extends javax.swing.JFrame {
 
     /**
-     * Creates new form RelatorioProdutos
+     * Creates new form RelatorioClientes
      */
-    public RelatorioProdutos() {
+    public RelatorioClientes() {
         initComponents();
-        preencheTabela();
+        preenchetabela();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,43 +32,50 @@ public class RelatorioProdutos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProd = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaCli = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tabelaProd.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("Relatorio De Clientes");
+
+        tabelaCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nome", "Preço", "Descrição", "Estoque"
+                "Id", "Nome", "E-mail", "Telefone", "Enderoço"
             }
-        ));
-        jScrollPane1.setViewportView(tabelaProd);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Relatorio de Produtos");
-        jLabel1.setToolTipText("");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabelaCli);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addGap(211, 211, 211)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
         );
 
         pack();
@@ -92,44 +98,45 @@ public class RelatorioProdutos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelatorioProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatorioClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RelatorioProdutos().setVisible(true);
+                new RelatorioClientes().setVisible(true);
             }
         });
     }
     
-    public void preencheTabela(){
-        ProdutoDAO pDAO = new ProdutoDAO();
-        List<Produto> ListaProdutos = pDAO.listar();
+    public void preenchetabela(){
+        ClienteDAO cDAO = new ClienteDAO();
+        List<Cliente> ListaClientes = cDAO.listar();
         
-        DefaultTableModel tabelaProdutos = (DefaultTableModel) tabelaProd.getModel();
+        DefaultTableModel tabelaClientes = (DefaultTableModel) tabelaCli.getModel();
         
-        for(Produto p: ListaProdutos){
+        for(Cliente c: ListaClientes){
             Object[] obj = new Object[]{
-                p.getId_produto(),
-                p.getNome(),
-                p.getPreco(),
-                p.getDescricao(),
-                p.getQtd_estoque()};
-            tabelaProdutos.addRow(obj);
+                c.getId_cliente(),
+                c.getNome(),
+                c.getEmail(),
+                c.getTelefone(),
+                c.getEndereco()};
+            tabelaClientes.addRow(obj);
             }
         }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelaProd;
+    private javax.swing.JTable tabelaCli;
     // End of variables declaration//GEN-END:variables
 }
