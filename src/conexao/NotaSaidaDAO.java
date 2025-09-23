@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import model.NotaSaida;
 
 /**
@@ -20,17 +21,21 @@ public class NotaSaidaDAO {
         this.conn = this.conexao.getConexao();
     }
     
-    public void inserir(NotaSaida ns) {
-        String sql = "INSERT INTO NotaSaida (id_cliente, valorVenda, data_venda) VALUES (?,?,?)";
+    public int inserir(NotaSaida ns) {
+        String sql = "INSERT INTO NotaSaida (id_cliente, data_venda) VALUES (?,?)";
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, ns.getId_cliente());
-            stmt.setDouble(2, ns.getValorVenda());
-            stmt.setDate(3, Date.valueOf(ns.getData_venda()));
-            stmt.execute();
+            stmt.setDate(2, Date.valueOf(ns.getData_venda()));
+            stmt.executeUpdate();
+             ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
         } catch (SQLException ex) {
             System.out.println("Erro ao inserir nota: " + ex.getMessage());
         }
+        return -1;
     }
     
     public NotaSaida getNota(int id) {
@@ -43,7 +48,7 @@ public class NotaSaidaDAO {
                 NotaSaida notasaida = new NotaSaida();
                 notasaida.setId_nota(rs.getInt("id_nota"));
                 notasaida.setId_cliente(rs.getInt("id_cliente"));
-                notasaida.setValorVenda(rs.getDouble("valorVenda"));
+                notasaida.setQuantidadeVendida(rs.getInt("qtd_vendida"));
                 notasaida.setData_venda(rs.getDate("data_venda").toLocalDate());
                 return notasaida;
             }

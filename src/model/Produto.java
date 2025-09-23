@@ -57,6 +57,10 @@ public class Produto {
         this.qtd_estoque = qtd_estoque;
     }
     
-    
+    @Override
+    public String toString() {
+        return nome; 
+    }
+
     
 }

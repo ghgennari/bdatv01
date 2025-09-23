@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class NotaSaida {
     private int id_nota;
     private int id_cliente;
-    private double valorVenda;
+    private int qtdVendida;
     private LocalDate data_venda;
 
     public int getId_nota() {
@@ -33,12 +33,12 @@ public class NotaSaida {
         this.id_cliente = id_cliente;
     }
 
-    public double getValorVenda() {
-        return valorVenda;
+    public int getQuantidadeVendida() {
+        return qtdVendida;
     }
 
-    public void setValorVenda(double valorVenda) {
-        this.valorVenda = valorVenda;
+    public void setQuantidadeVendida(int qV) {
+        this.qtdVendida = qV;
     }
 
     public LocalDate getData_venda() {
