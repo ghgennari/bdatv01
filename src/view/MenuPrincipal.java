@@ -103,7 +103,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ClientesActionPerformed
 
     private void NotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotasActionPerformed
-        
+        CadNotas nota = new CadNotas();
+        nota.setVisible(true);
     }//GEN-LAST:event_NotasActionPerformed
 
     /**
