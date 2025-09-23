@@ -83,11 +83,13 @@ public class ProdutoDAO {
     }
     
      public List<Produto> listar() {
-        List<Produto> lista = new ArrayList<>();
         String sql = "SELECT * FROM Produto";
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            
             ResultSet rs = stmt.executeQuery();
+            List<Produto> listaProdutos = new ArrayList();
             while (rs.next()) {
                 Produto produto = new Produto();
                 produto.setId_produto(rs.getInt("id_produto"));
@@ -95,12 +97,12 @@ public class ProdutoDAO {
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setQtd_estoque(rs.getInt("qtd_estoque"));
-                lista.add(produto);
+                listaProdutos.add(produto);
             }
+            return listaProdutos;
         } catch (SQLException ex) {
             System.out.println("Erro ao listar produtos: " + ex.getMessage());
+            return null;
         }
-        return lista;
-    }
-    
+}
 }
