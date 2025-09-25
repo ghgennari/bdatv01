@@ -55,9 +55,12 @@ public class ItensNotaDAO {
     
     public List<ItensNota> buscarPorNota(int idNota) throws SQLException {
     List<ItensNota> lista = new ArrayList<>();
-    String sql = "SELECT i.id_produto, p.nome as nomeProduto, i.qtdVenda " +
+    String sql = "SELECT i.id_produto, p.nome as nomeProduto, i.qtdVenda, " +
+                 "c.nome AS nomeCliente " +
                  "FROM ItensNotas i " +
                  "JOIN Produto p ON i.id_produto = p.id_produto " +
+                 "JOIN NotaSaida n ON i.id_nota = n.id_nota " +
+                 "JOIN Cliente c ON n.id_cliente = c.id_cliente " +
                  "WHERE i.id_nota = ?";
     
     try (Connection con = Conexao.getConexao();
@@ -69,8 +72,9 @@ public class ItensNotaDAO {
         while (rs.next()) {
             ItensNota item = new ItensNota();
             item.setId_produto(rs.getInt("id_produto"));
-            item.setNomeProduto(rs.getString("nomeProduto")); // você precisa ter esse campo na classe
+            item.setNomeProduto(rs.getString("nomeProduto"));
             item.setQtdVenda(rs.getInt("qtdVenda"));
+            item.setNomeCliente(rs.getString("nomeCliente"));
             lista.add(item);
         }
     }

@@ -177,7 +177,7 @@ public class CadNotas extends javax.swing.JFrame {
             n.setData_venda(LocalDate.now());
 
             NotaSaidaDAO nDAO = new NotaSaidaDAO();
-            int idNota = nDAO.inserir(n); // pega o ID gerado
+            int idNota = nDAO.inserir(n);
 
             if (idNota > 0 && !listaItens.isEmpty()) {
                 ItensNotaDAO itemDAO = new ItensNotaDAO();
@@ -187,7 +187,7 @@ public class CadNotas extends javax.swing.JFrame {
                 }
 
                 JOptionPane.showMessageDialog(this, "Nota registrada com sucesso!");
-                listaItens.clear(); // limpar lista para a próxima nota
+                listaItens.clear();
                 LimparForm();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro ao registrar a nota ou nenhum produto adicionado!");
@@ -209,7 +209,7 @@ public class CadNotas extends javax.swing.JFrame {
             listaItens.add(item);
 
             JOptionPane.showMessageDialog(this, "Produto adicionado à lista!");
-            qtdVendida.setText(""); // limpar input
+            qtdVendida.setText("");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }

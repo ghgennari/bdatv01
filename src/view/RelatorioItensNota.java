@@ -49,11 +49,11 @@ public class RelatorioItensNota extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id produto", "Nome Produto", "Quantidade"
+                "Id produto", "Nome Produto", "Quantidade", "Nome Cliente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -104,23 +104,20 @@ public class RelatorioItensNota extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-        // Pega o ID da nota digitado pelo usuário
         int idNota = Integer.parseInt(txtIdNota.getText());
 
-        // Cria DAO para buscar itens
         ItensNotaDAO itemDAO = new ItensNotaDAO();
-        List<ItensNota> itens = itemDAO.buscarPorNota(idNota); // você precisa criar esse método no DAO
+        List<ItensNota> itens = itemDAO.buscarPorNota(idNota);
 
-        // Modelo da tabela
         DefaultTableModel model = (DefaultTableModel) tblItensNota.getModel();
-        model.setRowCount(0); // limpa a tabela antes de preencher
+        model.setRowCount(0);
 
-        // Preenche a tabela
         for (ItensNota item : itens) {
             model.addRow(new Object[]{
                 item.getId_produto(),
-                item.getNomeProduto(), // se o seu DAO retornar o nome do produto
-                item.getQtdVenda()
+                item.getNomeProduto(),
+                item.getQtdVenda(),
+                item.getNomeCliente()
             });
         }
 

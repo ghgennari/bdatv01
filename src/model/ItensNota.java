@@ -14,6 +14,7 @@ public class ItensNota {
     private int id_produto;
     private int qtdVenda;
     private String NomeProduto;
+    private String nomeCliente;
 
     public int getId_nota() {
         return id_nota;
@@ -46,5 +47,14 @@ public class ItensNota {
     public String getNomeProduto(){
         return NomeProduto;
     }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String S) {
+        nomeCliente = S;
+    }
+    
     
 }
