@@ -62,8 +62,8 @@ public class CadNotas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAddProd = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,17 +90,17 @@ public class CadNotas extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Adicionar Produto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddProd.setText("Adicionar Produto");
+        btnAddProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddProdActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Consultar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnConsultarActionPerformed(evt);
             }
         });
 
@@ -120,7 +120,7 @@ public class CadNotas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(btnAddProd))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(clienteCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -131,7 +131,7 @@ public class CadNotas extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
                             .addComponent(produtoCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                            .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
                 .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
@@ -152,12 +152,12 @@ public class CadNotas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(qtdVendida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(btnConsultar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrar)
                     .addComponent(btnLimpar)
-                    .addComponent(jButton1))
+                    .addComponent(btnAddProd))
                 .addGap(49, 49, 49))
         );
 
@@ -170,8 +170,14 @@ public class CadNotas extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
+            
             Cliente cliente = (Cliente) clienteCB.getSelectedItem();
-
+            
+             if (listaItens.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Adicione pelo menos um produto antes de registrar a nota!");
+            return;
+        }
+            
             NotaSaida n = new NotaSaida();
             n.setId_cliente(cliente.getId_cliente());
             n.setData_venda(LocalDate.now());
@@ -179,7 +185,7 @@ public class CadNotas extends javax.swing.JFrame {
             NotaSaidaDAO nDAO = new NotaSaidaDAO();
             int idNota = nDAO.inserir(n);
 
-            if (idNota > 0 && !listaItens.isEmpty()) {
+            if (idNota > 0) {
                 ItensNotaDAO itemDAO = new ItensNotaDAO();
                 for (ItensNota item : listaItens) {
                     item.setId_nota(idNota);
@@ -190,14 +196,14 @@ public class CadNotas extends javax.swing.JFrame {
                 listaItens.clear();
                 LimparForm();
             } else {
-                JOptionPane.showMessageDialog(this, "Erro ao registrar a nota ou nenhum produto adicionado!");
+                JOptionPane.showMessageDialog(this, "Erro ao registrar a nota");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProdActionPerformed
           try {
             Produto produto = (Produto) produtoCB.getSelectedItem();
             int qtd = Integer.parseInt(qtdVendida.getText());
@@ -213,12 +219,12 @@ public class CadNotas extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddProdActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         RelatorioItensNota relNota = new RelatorioItensNota();
         relNota.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnConsultarActionPerformed
     
     private void LimparForm(){
         qtdVendida.setText("");
@@ -262,11 +268,11 @@ public class CadNotas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddProd;
+    private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<Cliente> clienteCB;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
