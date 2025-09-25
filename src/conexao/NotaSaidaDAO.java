@@ -38,26 +38,4 @@ public class NotaSaidaDAO {
         return -1;
     }
     
-    public NotaSaida getNota(int id) {
-        String sql = "SELECT * FROM NotaSaida WHERE id_nota=?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.first()) {
-                NotaSaida notasaida = new NotaSaida();
-                notasaida.setId_nota(rs.getInt("id_nota"));
-                notasaida.setId_cliente(rs.getInt("id_cliente"));
-                notasaida.setQuantidadeVendida(rs.getInt("qtd_vendida"));
-                notasaida.setData_venda(rs.getDate("data_venda").toLocalDate());
-                return notasaida;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao consultar nota: " + ex.getMessage());
-        }
-        return null;
-    }
-    
-    
-    
 }

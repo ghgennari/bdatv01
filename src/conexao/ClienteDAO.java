@@ -35,53 +35,6 @@ public class ClienteDAO {
         }
     }
     
-    public Cliente getCliente(int id) {
-        String sql = "SELECT * FROM Cliente WHERE id_cliente=?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.first()) {
-                Cliente cliente = new Cliente();
-                cliente.setId_cliente(rs.getInt("id_cliente"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setEndereco(rs.getString("endereco"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setTelefone(rs.getString("telefone"));
-                return cliente;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao consultar cliente: " + ex.getMessage());
-        }
-        return null;
-    }
-    
-    public void editar(Cliente cliente) {
-        String sql = "UPDATE Cliente SET nome=?, endereco=?, email=?, telefone=? WHERE id_cliente=?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getEndereco());
-            stmt.setString(3, cliente.getEmail());
-            stmt.setString(4, cliente.getTelefone());
-            stmt.setInt(5, cliente.getId_cliente());
-            stmt.execute();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar cliente: " + ex.getMessage());
-        }
-    }
-    
-    public void excluir(int id) {
-        String sql = "DELETE FROM Cliente WHERE id_cliente=?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.execute();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao excluir cliente: " + ex.getMessage());
-        }
-    }
-    
     public List<Cliente> listar() {
         String sql = "SELECT * FROM Cliente";
         try {

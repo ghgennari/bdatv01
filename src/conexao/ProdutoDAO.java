@@ -35,53 +35,6 @@ public class ProdutoDAO {
         }
     }
     
-    public Produto getProduto(int id){
-        String sql = "SELECT * FROM Produto WHERE id_produto = ?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.first()) {
-                Produto produto = new Produto();
-                produto.setId_produto(rs.getInt("id_produto"));
-                produto.setNome(rs.getString("nome"));
-                produto.setDescricao(rs.getString("descricao"));
-                produto.setPreco(rs.getDouble("preco"));
-                produto.setQtd_estoque(rs.getInt("qtd_estoque"));
-                return produto;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao consultar produto: " + ex.getMessage());
-        }
-        return null;
-    }
-    
-    public void editar(Produto produto) {
-        String sql = "UPDATE Produto SET nome=?, descricao=?, preco=?, qtd_estoque=? WHERE id_produto=?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, produto.getNome());
-            stmt.setString(2, produto.getDescricao());
-            stmt.setDouble(3, produto.getPreco());
-            stmt.setInt(4, produto.getQtd_estoque());
-            stmt.setInt(5, produto.getId_produto());
-            stmt.execute();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar produto: " + ex.getMessage());
-        }
-    }
-    
-    public void excluir(int id) {
-        String sql = "DELETE FROM Produto WHERE id_produto=?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.execute();
-        } catch (SQLException ex) {
-            System.out.println("Erro ao excluir produto: " + ex.getMessage());
-        }
-    }
-    
      public List<Produto> listar() {
         String sql = "SELECT * FROM Produto";
         try {
