@@ -1,6 +1,7 @@
 package conexao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,7 +57,7 @@ public class ItensNotaDAO {
     public List<ItensNota> buscarPorNota(int idNota) throws SQLException {
     List<ItensNota> lista = new ArrayList<>();
     String sql = "SELECT i.id_produto, p.nome as nomeProduto, i.qtdVenda, " +
-                 "c.nome AS nomeCliente " +
+                 "c.nome AS nomeCliente, n.data_venda " +
                  "FROM ItensNotas i " +
                  "JOIN Produto p ON i.id_produto = p.id_produto " +
                  "JOIN NotaSaida n ON i.id_nota = n.id_nota " +
@@ -75,8 +76,12 @@ public class ItensNotaDAO {
             item.setNomeProduto(rs.getString("nomeProduto"));
             item.setQtdVenda(rs.getInt("qtdVenda"));
             item.setNomeCliente(rs.getString("nomeCliente"));
-            lista.add(item);
-        }
+            Date sqlDate = rs.getDate("data_venda");  
+            if (sqlDate != null) {
+            item.setData_venda(sqlDate.toLocalDate());
+            }
+                lista.add(item);
+            }
     }
 
     return lista;

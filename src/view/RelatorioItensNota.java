@@ -38,6 +38,8 @@ public class RelatorioItensNota extends javax.swing.JFrame {
         tblItensNota = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         txtIdNota = new javax.swing.JTextField();
+        dataTxt = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,11 +51,11 @@ public class RelatorioItensNota extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id produto", "Nome Produto", "Quantidade", "Nome Cliente"
+                "Id produto", "Nome Produto", "Quantidade", "Nome Cliente", "Data venda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -69,6 +71,14 @@ public class RelatorioItensNota extends javax.swing.JFrame {
             }
         });
 
+        dataTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dataTxtActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Data de venda:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,25 +88,32 @@ public class RelatorioItensNota extends javax.swing.JFrame {
                 .addComponent(txtIdNota, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jButton1)
-                .addGap(44, 44, 44)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addContainerGap(292, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(txtIdNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
+                            .addComponent(txtIdNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(dataTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
         );
 
         pack();
@@ -111,13 +128,16 @@ public class RelatorioItensNota extends javax.swing.JFrame {
 
         DefaultTableModel model = (DefaultTableModel) tblItensNota.getModel();
         model.setRowCount(0);
-
+        
+        
+        
         for (ItensNota item : itens) {
             model.addRow(new Object[]{
                 item.getId_produto(),
                 item.getNomeProduto(),
                 item.getQtdVenda(),
-                item.getNomeCliente()
+                item.getNomeCliente(),
+                item.getData_venda()
             });
         }
 
@@ -131,6 +151,10 @@ public class RelatorioItensNota extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
     }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void dataTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dataTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,8 +192,10 @@ public class RelatorioItensNota extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField dataTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblItensNota;
     private javax.swing.JTextField txtIdNota;

@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author ghgen
@@ -15,7 +17,8 @@ public class ItensNota {
     private int qtdVenda;
     private String NomeProduto;
     private String nomeCliente;
-
+    private LocalDate data_venda;
+    
     public int getId_nota() {
         return id_nota;
     }
@@ -54,6 +57,14 @@ public class ItensNota {
 
     public void setNomeCliente(String S) {
         nomeCliente = S;
+    }
+
+    public LocalDate getData_venda() {
+        return data_venda;
+    }
+
+    public void setData_venda(LocalDate data_venda) {
+        this.data_venda = data_venda;
     }
     
     
