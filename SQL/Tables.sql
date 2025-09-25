@@ -1,5 +1,5 @@
 CREATE TABLE Produto (
-    id_produto INT PRIMARY KEY IDENTITY,
+    id_produto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     descricao VARCHAR(200),
     preco DECIMAL(10,2) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE Produto (
 );
 
 CREATE TABLE Cliente (
-    id_cliente INT PRIMARY KEY IDENTITY,
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     endereco VARCHAR(200),
     email VARCHAR(100),
@@ -15,9 +15,8 @@ CREATE TABLE Cliente (
 );
 
 CREATE TABLE NotaSaida (
-    id_nota INT PRIMARY KEY IDENTITY,
+    id_nota INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT NOT NULL,
-    valorVenda DECIMAL(10,2) NOT NULL,
     data_venda DATE NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente)
 );
